@@ -1,0 +1,33 @@
+{
+  "ok": true,
+  "status": "needs_approval",
+  "run_id": "run-f841d369511a",
+  "ticket_id": 101,
+  "assigned_to": "customer_service",
+  "routing_reason": "Ticket type 'customer_order' is owned by the customer_service agent.",
+  "resolution": "Customer Service\u2019s stock and vendor findings are supported by ticket-linked records: size S has 0 on hand, sizes M/L/XL are available, and Bulldog Print Co is blocked by unpaid invoice #501 for $840, due 2026-08-28 and 3 days overdue against the shop date 2026-08-31. Their saved customer reply is draft #1, not sent. There is no pending cash commitment; checking has $3,400 available to commit, so cash does not prevent an authorized invoice payment, but no payment or approval has been made.",
+  "ticket_status": "blocked",
+  "blocked_by": "No size S stock, and the only matching vendor, Bulldog Print Co, cannot receive a new order while invoice #501 remains unpaid. A human must authorize payment before the vendor can be unblocked.",
+  "needs_human_approval": true,
+  "pending_approvals": [],
+  "draft_ids": [
+    1
+  ],
+  "agents_involved": [
+    "customer_service",
+    "boss"
+  ],
+  "tools_called": [
+    "check_order_fulfillment",
+    "check_vendor_status",
+    "draft_customer_email",
+    "get_cash_position",
+    "get_ticket",
+    "list_drafts",
+    "list_outstanding_invoices",
+    "update_ticket_status"
+  ],
+  "model_calls": 8,
+  "tool_calls": 10,
+  "message": "Customer Service\u2019s stock and vendor findings are supported by ticket-linked records: size S has 0 on hand, sizes M/L/XL are available, and Bulldog Print Co is blocked by unpaid invoice #501 for $840, due 2026-08-28 and 3 days overdue against the shop date 2026-08-31. Their saved customer reply is draft #1, not sent. There is no pending cash commitment; checking has $3,400 available to commit, so cash does not prevent an authorized invoice payment, but no payment or approval has been made."
+}

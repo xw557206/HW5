@@ -1,0 +1,429 @@
+{
+  "generated_at": "2026-10-08T02:47:59+00:00",
+  "database": "data/campus_customs_new.db",
+  "shop_date": "2026-08-31",
+  "transport": "stdio",
+  "launch_command": "python -m mcp_server.server",
+  "config_file": ".mcp.json",
+  "server_name": "campus-customs",
+  "tools_discovered": [
+    "check_order_fulfillment",
+    "check_rent_due",
+    "quote_bulk_discount"
+  ],
+  "note": "Each tool was called over a real MCP stdio connection, not by importing the function. Every figure returned was then re-queried directly from the database with independent SQL; a value the tool invented would show as a mismatch below.",
+  "summary": {
+    "tools_tested": 3,
+    "passed": 3,
+    "failed": 0,
+    "total_value_checks": 40,
+    "total_value_checks_passed": 40
+  },
+  "tests": [
+    {
+      "ticket_id": 101,
+      "ticket_type": "customer_order",
+      "prompt": "Ticket 101: Tauhid Zaman wants one Classic Bulldog Tee (CC-TEE-WHITE) in size S. Can we fill this order today, and if not, who could restock it?",
+      "tool_called": "check_order_fulfillment",
+      "arguments": {
+        "sku": "CC-TEE-WHITE",
+        "size": "S",
+        "qty": 1
+      },
+      "tool_error": false,
+      "result": {
+        "sku": "CC-TEE-WHITE",
+        "product_name": "Classic Bulldog Tee",
+        "requested_size": "S",
+        "requested_qty": 1,
+        "qty_on_hand": 0,
+        "can_fulfill_now": false,
+        "shortfall": 1,
+        "other_sizes": [
+          {
+            "size": "L",
+            "qty": 3,
+            "location": "Aisle B",
+            "in_stock": true
+          },
+          {
+            "size": "M",
+            "qty": 5,
+            "location": "Aisle B",
+            "in_stock": true
+          },
+          {
+            "size": "S",
+            "qty": 0,
+            "location": "Aisle B",
+            "in_stock": false
+          },
+          {
+            "size": "XL",
+            "qty": 2,
+            "location": "Aisle B",
+            "in_stock": true
+          }
+        ],
+        "unit_cost": 8.0,
+        "list_price": 28.0,
+        "restock_options": [
+          {
+            "vendor_id": 1,
+            "name": "Bulldog Print Co",
+            "specialty": "apparel reprint",
+            "lead_days": 5,
+            "outstanding_invoice_count": 1,
+            "outstanding_invoice_total": 840.0,
+            "can_order": false,
+            "blocked_reason": "Bulldog Print Co has 1 unpaid invoice(s) totalling $840.00 (#501 $840.00 due 2026-08-28). No new orders until settled."
+          }
+        ],
+        "any_vendor_available": false,
+        "shop_date": "2026-08-31",
+        "summary": "Classic Bulldog Tee in size S is out of stock (qty 0); short 1 of 1. Other sizes in stock: L, M, XL. Every matching vendor is blocked: Bulldog Print Co has 1 unpaid invoice(s) totalling $840.00 (#501 $840.00 due 2026-08-28). No new orders until settled."
+      },
+      "verification": {
+        "checks_run": 11,
+        "checks_passed": 11,
+        "all_values_match_database": true,
+        "details": [
+          {
+            "check": "qty_on_hand matches inventory",
+            "returned_by_tool": 0,
+            "value_in_database": 0,
+            "match": true
+          },
+          {
+            "check": "can_fulfill_now is False (size S empty)",
+            "returned_by_tool": false,
+            "value_in_database": false,
+            "match": true
+          },
+          {
+            "check": "shortfall = requested - on hand",
+            "returned_by_tool": 1,
+            "value_in_database": 1,
+            "match": true
+          },
+          {
+            "check": "every size and quantity matches inventory",
+            "returned_by_tool": {
+              "L": 3,
+              "M": 5,
+              "S": 0,
+              "XL": 2
+            },
+            "value_in_database": {
+              "L": 3,
+              "M": 5,
+              "S": 0,
+              "XL": 2
+            },
+            "match": true
+          },
+          {
+            "check": "unit_cost matches pricing",
+            "returned_by_tool": 8.0,
+            "value_in_database": 8.0,
+            "match": true
+          },
+          {
+            "check": "shop_date is desk.date_today",
+            "returned_by_tool": "2026-08-31",
+            "value_in_database": "2026-08-31",
+            "match": true
+          },
+          {
+            "check": "one apparel vendor reported blocked",
+            "returned_by_tool": 1,
+            "value_in_database": 1,
+            "match": true
+          },
+          {
+            "check": "blocked vendor is the one owed money",
+            "returned_by_tool": "Bulldog Print Co",
+            "value_in_database": "Bulldog Print Co",
+            "match": true
+          },
+          {
+            "check": "blocked vendor's outstanding total matches invoices",
+            "returned_by_tool": 840.0,
+            "value_in_database": 840.0,
+            "match": true
+          },
+          {
+            "check": "no vendor available to restock",
+            "returned_by_tool": false,
+            "value_in_database": false,
+            "match": true
+          },
+          {
+            "check": "overdue invoice id appears in the reason",
+            "returned_by_tool": true,
+            "value_in_database": true,
+            "match": true
+          }
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "ticket_id": 102,
+      "ticket_type": "rent_notice",
+      "prompt": "Ticket 102: Elm City Properties says shop rent is due in 2 days. How much is owed on the lease, when exactly, and can we afford it?",
+      "tool_called": "check_rent_due",
+      "arguments": {
+        "lease_id": 1,
+        "account": "checking"
+      },
+      "tool_error": false,
+      "result": {
+        "lease_id": 1,
+        "space_name": "Chapel Street shop",
+        "landlord": "Elm City Properties",
+        "monthly_rent": 2400.0,
+        "next_due": "2026-09-02",
+        "days_until_due": 2,
+        "is_overdue": false,
+        "is_due_soon": true,
+        "cash_account": "checking",
+        "cash_balance": 3400.0,
+        "affordable": true,
+        "balance_after_payment": 1000.0,
+        "already_paid": false,
+        "payment_count": 0,
+        "requires_human_approval": true,
+        "shop_date": "2026-08-31",
+        "summary": "Chapel Street shop: $2,400.00 to Elm City Properties, due in 2 day(s) on 2026-09-02. Checking holds $3,400.00, leaving $1,000.00 after payment. Payment requires human approval."
+      },
+      "verification": {
+        "checks_run": 13,
+        "checks_passed": 13,
+        "all_values_match_database": true,
+        "details": [
+          {
+            "check": "monthly_rent matches leases",
+            "returned_by_tool": 2400.0,
+            "value_in_database": 2400.0,
+            "match": true
+          },
+          {
+            "check": "next_due matches leases",
+            "returned_by_tool": "2026-09-02",
+            "value_in_database": "2026-09-02",
+            "match": true
+          },
+          {
+            "check": "landlord matches leases",
+            "returned_by_tool": "Elm City Properties",
+            "value_in_database": "Elm City Properties",
+            "match": true
+          },
+          {
+            "check": "space_name matches leases",
+            "returned_by_tool": "Chapel Street shop",
+            "value_in_database": "Chapel Street shop",
+            "match": true
+          },
+          {
+            "check": "days_until_due computed from desk.date_today",
+            "returned_by_tool": 2,
+            "value_in_database": 2,
+            "match": true
+          },
+          {
+            "check": "is_overdue is False (due in future)",
+            "returned_by_tool": false,
+            "value_in_database": false,
+            "match": true
+          },
+          {
+            "check": "is_due_soon is True (within 7 days)",
+            "returned_by_tool": true,
+            "value_in_database": true,
+            "match": true
+          },
+          {
+            "check": "cash_balance matches cash_accounts",
+            "returned_by_tool": 3400.0,
+            "value_in_database": 3400.0,
+            "match": true
+          },
+          {
+            "check": "affordable, balance covers rent",
+            "returned_by_tool": true,
+            "value_in_database": true,
+            "match": true
+          },
+          {
+            "check": "balance_after_payment = balance - rent",
+            "returned_by_tool": 1000.0,
+            "value_in_database": 1000.0,
+            "match": true
+          },
+          {
+            "check": "already_paid matches payments table",
+            "returned_by_tool": false,
+            "value_in_database": false,
+            "match": true
+          },
+          {
+            "check": "human approval flagged",
+            "returned_by_tool": true,
+            "value_in_database": true,
+            "match": true
+          },
+          {
+            "check": "shop_date is desk.date_today",
+            "returned_by_tool": "2026-08-31",
+            "value_in_database": "2026-08-31",
+            "match": true
+          }
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "ticket_id": 103,
+      "ticket_type": "price_override",
+      "prompt": "Ticket 103: the Yale AI Club wants 20 navy hoodies (CC-HOOD-NAVY) in size M at a bulk discount. Can we supply them, and would $40 per unit still make money?",
+      "tool_called": "quote_bulk_discount",
+      "arguments": {
+        "sku": "CC-HOOD-NAVY",
+        "size": "M",
+        "qty": 20,
+        "proposed_unit_price": 40.0
+      },
+      "tool_error": false,
+      "result": {
+        "sku": "CC-HOOD-NAVY",
+        "product_name": "Basic Hoodie Big Yale",
+        "size": "M",
+        "requested_qty": 20,
+        "qty_on_hand": 8,
+        "shortfall": 12,
+        "can_fill_from_stock": false,
+        "unit_cost": 22.0,
+        "list_price": 58.0,
+        "list_total": 1160.0,
+        "cost_total": 440.0,
+        "margin_at_list": 720.0,
+        "min_unit_price": 22.0,
+        "max_discount_pct_at_cost": 62.1,
+        "proposed_unit_price": 40.0,
+        "proposed_total": 800.0,
+        "proposed_margin": 360.0,
+        "proposed_discount_pct": 31.0,
+        "proposed_is_profitable": true,
+        "requires_human_approval": true,
+        "shop_date": "2026-08-31",
+        "summary": "Basic Hoodie Big Yale size M: 8 on hand against 20 requested, short 12. Cost $22.00/unit, list $58.00/unit. At list that is $1,160.00 with $720.00 margin. Break-even is $22.00/unit (62% off list). The proposed $40.00/unit is 31.0% off, totalling $800.00 with $360.00 margin \u2014 still profitable. A price override needs human approval."
+      },
+      "verification": {
+        "checks_run": 16,
+        "checks_passed": 16,
+        "all_values_match_database": true,
+        "details": [
+          {
+            "check": "qty_on_hand matches inventory",
+            "returned_by_tool": 8,
+            "value_in_database": 8,
+            "match": true
+          },
+          {
+            "check": "shortfall = requested - on hand",
+            "returned_by_tool": 12,
+            "value_in_database": 12,
+            "match": true
+          },
+          {
+            "check": "cannot fill from stock",
+            "returned_by_tool": false,
+            "value_in_database": false,
+            "match": true
+          },
+          {
+            "check": "unit_cost matches pricing",
+            "returned_by_tool": 22.0,
+            "value_in_database": 22.0,
+            "match": true
+          },
+          {
+            "check": "list_price matches pricing",
+            "returned_by_tool": 58.0,
+            "value_in_database": 58.0,
+            "match": true
+          },
+          {
+            "check": "list_total = qty x list_price",
+            "returned_by_tool": 1160.0,
+            "value_in_database": 1160.0,
+            "match": true
+          },
+          {
+            "check": "cost_total = qty x unit_cost",
+            "returned_by_tool": 440.0,
+            "value_in_database": 440.0,
+            "match": true
+          },
+          {
+            "check": "margin_at_list = list_total - cost_total",
+            "returned_by_tool": 720.0,
+            "value_in_database": 720.0,
+            "match": true
+          },
+          {
+            "check": "floor price is unit_cost",
+            "returned_by_tool": 22.0,
+            "value_in_database": 22.0,
+            "match": true
+          },
+          {
+            "check": "max break-even discount computed from pricing",
+            "returned_by_tool": 62.1,
+            "value_in_database": 62.1,
+            "match": true
+          },
+          {
+            "check": "proposed_total = qty x proposed",
+            "returned_by_tool": 800.0,
+            "value_in_database": 800.0,
+            "match": true
+          },
+          {
+            "check": "proposed_margin = proposed_total - cost_total",
+            "returned_by_tool": 360.0,
+            "value_in_database": 360.0,
+            "match": true
+          },
+          {
+            "check": "proposed_discount_pct off list",
+            "returned_by_tool": 31.0,
+            "value_in_database": 31.0,
+            "match": true
+          },
+          {
+            "check": "proposed price is above cost",
+            "returned_by_tool": true,
+            "value_in_database": true,
+            "match": true
+          },
+          {
+            "check": "human approval flagged",
+            "returned_by_tool": true,
+            "value_in_database": true,
+            "match": true
+          },
+          {
+            "check": "shop_date is desk.date_today",
+            "returned_by_tool": "2026-08-31",
+            "value_in_database": "2026-08-31",
+            "match": true
+          }
+        ]
+      },
+      "status": "pass"
+    }
+  ]
+}

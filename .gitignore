@@ -1,0 +1,24 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+.venv/
+venv/
+
+# Python build artefacts
+__pycache__/
+*.pyc
+
+# Frontend build output
+frontend/dist/
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Local MCP server configuration
+.mcp.json

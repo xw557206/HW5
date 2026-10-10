@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "campus-dashboard",
+      "runtimeExecutable": "C:/hw5-frontend/dev.cmd",
+      "runtimeArgs": [],
+      "cwd": "C:/hw5-frontend",
+      "port": 5173,
+      "autoPort": true
+    }
+  ]
+}

@@ -1,0 +1,227 @@
+{
+  "generated_at": "2026-10-08T04:25:32+00:00",
+  "shop_date": "2026-08-31",
+  "database": "data/campus_customs_new.db",
+  "summary": {
+    "tickets": 3,
+    "resolved": 0,
+    "awaiting_approval": 1,
+    "blocked": 1,
+    "still_open": 1,
+    "approvals_raised": 1,
+    "approvals_pending": 1,
+    "payments_made": 0,
+    "drafts_written": 1,
+    "purchase_orders": 0,
+    "failed_agent_runs": 3
+  },
+  "cash": {
+    "starting_balance": 3400.0,
+    "total_paid": 0,
+    "ending_balance": 3400.0,
+    "reconciles": true,
+    "committed_to_pending_approvals": 2400.0
+  },
+  "tickets": [
+    {
+      "ticket_id": 101,
+      "type": "customer_order",
+      "requester": "Tauhid Zaman",
+      "subject": "Bulldog tee",
+      "final_status": "blocked",
+      "is_resolved": false,
+      "outcome": "Customer Service’s stock and vendor findings are supported by ticket-linked records: size S has 0 on hand, sizes M/L/XL are available, and Bulldog Print Co is blocked by unpaid invoice #501 for $840, due 2026-08-28 and 3 days overdue against the shop date 2026-08-31. Their saved customer reply is draft #1, not sent. There is no pending cash commitment; checking has $3,400 available to commit, so …",
+      "agents_involved": [
+        "customer_service",
+        "boss"
+      ],
+      "agent_contributions": [
+        {
+          "agent": "customer_service",
+          "delegation_depth": 0,
+          "invoked_by": "orchestrator",
+          "tool_calls": 4,
+          "tools_used": [
+            "check_order_fulfillment",
+            "draft_customer_email",
+            "get_ticket",
+            "update_ticket_status"
+          ],
+          "delegated_to": [],
+          "rule_refusals": [],
+          "contribution": "Tauhid Zaman requested one white Bulldog tee in size S. Size S is out of stock (0); sizes M, L, and XL are available. The sole matching restock vendor is blocked by unpaid invoice #501, so the requested size cannot be restocked until that invoice is settled."
+        },
+        {
+          "agent": "boss",
+          "delegation_depth": 2,
+          "invoked_by": "another agent",
+          "tool_calls": 6,
+          "tools_used": [
+            "check_order_fulfillment",
+            "check_vendor_status",
+            "get_cash_position",
+            "get_ticket",
+            "list_drafts",
+            "list_outstanding_invoices"
+          ],
+          "delegated_to": [],
+          "rule_refusals": [],
+          "contribution": "Customer Service’s stock and vendor findings are supported by ticket-linked records: size S has 0 on hand, sizes M/L/XL are available, and Bulldog Print Co is blocked by unpaid invoice #501 for $840, due 2026-08-28 and 3 days overdue against the shop date 2026-08-31. Their saved customer reply is draft #1, not sent. There is no pending cash commitment; checking has $3,400 available to commit, so …"
+        }
+      ],
+      "human_approvals": [],
+      "payments_made": [],
+      "drafts_written": [
+        {
+          "draft_id": 1,
+          "kind": "customer_email",
+          "recipient": "Tauhid Zaman",
+          "subject": "Bulldog tee in size S",
+          "created_by": "Customer Service",
+          "status": "draft",
+          "sent": false
+        }
+      ],
+      "purchase_orders": [],
+      "cash_impact": 0,
+      "blocked_by": null
+    },
+    {
+      "ticket_id": 102,
+      "type": "rent_notice",
+      "requester": "Elm City Properties",
+      "subject": "Rent due",
+      "final_status": "waiting_approval",
+      "is_resolved": false,
+      "outcome": "Reviewed the facilities report against the rent check, cash position, ticket record, and approval record. The rent amount, landlord, due date relative to shop date, unpaid status, and approval #1 are all confirmed by tools; no material facts were verified by assumption.",
+      "agents_involved": [
+        "facilities",
+        "boss"
+      ],
+      "agent_contributions": [
+        {
+          "agent": "facilities",
+          "delegation_depth": 0,
+          "invoked_by": "orchestrator",
+          "tool_calls": 5,
+          "tools_used": [
+            "check_rent_due",
+            "get_cash_position",
+            "get_ticket",
+            "request_approval",
+            "update_ticket_status"
+          ],
+          "delegated_to": [],
+          "rule_refusals": [],
+          "contribution": "Lease 1 for the Chapel Street shop is $2,400.00 to Elm City Properties, due 2026-09-02 (2 days from shop date 2026-08-31); rent has not already been paid. Checking has $3,400.00 available to commit, so payment would leave $1,000.00. Approval #1 is pending with a human; no payment was made."
+        },
+        {
+          "agent": "boss",
+          "delegation_depth": 2,
+          "invoked_by": "another agent",
+          "tool_calls": 4,
+          "tools_used": [
+            "check_rent_due",
+            "get_approval",
+            "get_cash_position",
+            "get_ticket"
+          ],
+          "delegated_to": [
+            "facilities"
+          ],
+          "rule_refusals": [],
+          "contribution": "Reviewed the facilities report against the rent check, cash position, ticket record, and approval record. The rent amount, landlord, due date relative to shop date, unpaid status, and approval #1 are all confirmed by tools; no material facts were verified by assumption."
+        }
+      ],
+      "human_approvals": [
+        {
+          "approval_id": 1,
+          "kind": "rent_payment",
+          "amount": 2400.0,
+          "requested_by": "Facilities",
+          "reason": "Elm City Properties — Chapel Street shop rent of $2,400.00 is due 2026-09-02, which is 2 days away (shop date 2026-08-31). Checking balance is $3,400.00; payment would leave $1,000.00. Rent is not already paid. Please approve payment.",
+          "status": "pending",
+          "decided_by": null,
+          "decided_at": null,
+          "decision_note": null,
+          "executed": false
+        }
+      ],
+      "payments_made": [],
+      "drafts_written": [],
+      "purchase_orders": [],
+      "cash_impact": 0,
+      "blocked_by": "Waiting on a human decision for approval #1 (rent_payment, $2,400.00)."
+    },
+    {
+      "ticket_id": 103,
+      "type": "price_override",
+      "requester": "Yale AI Club",
+      "subject": "Bulk hoodie discount",
+      "final_status": "open",
+      "is_resolved": false,
+      "outcome": "Reviewed the accounting report against the ticket, shop date, cash records, outstanding invoice list, pending approvals and Bulldog Print Co’s vendor status. Its quoted stock, cost and list price are verified by ticket/product data; the $22 break-even floor follows from the verified unit cost, and the invoice is confirmed 3 days overdue as of 2026-08-31. No proposed customer price was supplied, s…",
+      "agents_involved": [
+        "accounting",
+        "inventory",
+        "boss"
+      ],
+      "agent_contributions": [
+        {
+          "agent": "accounting",
+          "delegation_depth": 0,
+          "invoked_by": "orchestrator",
+          "tool_calls": 4,
+          "tools_used": [
+            "ask_inventory",
+            "get_cash_position",
+            "get_ticket",
+            "quote_bulk_discount"
+          ],
+          "delegated_to": [
+            "inventory"
+          ],
+          "rule_refusals": [],
+          "contribution": "Ticket #103 requests 20 CC-HOOD-NAVY hoodies, size M. The quote shows 8 on hand, short 12; unit cost is $22.00, list price $58.00, list total $1,160.00, margin at list $720.00, and break-even floor $22.00 per unit. No proposed discount price was provided, so no price override approval was raised. Restocking is blocked: Inventory reports the only matching vendor, Bulldog Print Co, is blocked by un…"
+        },
+        {
+          "agent": "inventory",
+          "delegation_depth": 1,
+          "invoked_by": "another agent",
+          "tool_calls": 3,
+          "tools_used": [
+            "check_order_fulfillment",
+            "check_vendor_status",
+            "get_ticket"
+          ],
+          "delegated_to": [],
+          "rule_refusals": [],
+          "contribution": "For a request to restock 12 CC-HOOD-NAVY size M, the shelf has 8, leaving a shortfall of 4. The only matching vendor is Bulldog Print Co; its reprint lead time is 5 days, but it is blocked by unpaid invoice #501 for $840.00, due 2026-08-28, so no vendor can currently be recommended for an order."
+        },
+        {
+          "agent": "boss",
+          "delegation_depth": 2,
+          "invoked_by": "another agent",
+          "tool_calls": 5,
+          "tools_used": [
+            "check_vendor_status",
+            "get_cash_position",
+            "get_ticket",
+            "list_outstanding_invoices",
+            "list_pending_approvals"
+          ],
+          "delegated_to": [],
+          "rule_refusals": [],
+          "contribution": "Reviewed the accounting report against the ticket, shop date, cash records, outstanding invoice list, pending approvals and Bulldog Print Co’s vendor status. Its quoted stock, cost and list price are verified by ticket/product data; the $22 break-even floor follows from the verified unit cost, and the invoice is confirmed 3 days overdue as of 2026-08-31. No proposed customer price was supplied, s…"
+        }
+      ],
+      "human_approvals": [],
+      "payments_made": [],
+      "drafts_written": [],
+      "purchase_orders": [],
+      "cash_impact": 0,
+      "blocked_by": null
+    }
+  ],
+  "note": "Built directly from campus_customs_new.db and output/audit_trail.json. A ticket is marked resolved only when the database says so."
+}

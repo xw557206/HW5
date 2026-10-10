@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "status": "blocked",
+  "run_id": "run-bf841af073e5",
+  "ticket_id": 103,
+  "assigned_to": "accounting",
+  "routing_reason": "Ticket type 'price_override' is owned by the accounting agent.",
+  "resolution": "Reviewed the accounting report against the ticket, shop date, cash records, outstanding invoice list, pending approvals and Bulldog Print Co\u2019s vendor status. Its quoted stock, cost and list price are verified by ticket/product data; the $22 break-even floor follows from the verified unit cost, and the invoice is confirmed 3 days overdue as of 2026-08-31. No proposed customer price was supplied, so there is no specific override to approve; the ticket remains blocked by the shortfall and the vendor\u2019s unpaid invoice.",
+  "ticket_status": "blocked",
+  "blocked_by": "Only 8 of 20 requested size M hoodies are on hand. Bulldog Print Co cannot be ordered from while invoice #501 ($840.00, due 2026-08-28) remains unpaid. The $840.00 invoice exceeds the current $1,000.00 available-to-commit amount only by? It does not exceed it: it is affordable on current available cash, but $2,400.00 is already committed; no approval to pay invoice #501 exists. The customer also has not specified a proposed discount price for an override decision.",
+  "needs_human_approval": false,
+  "pending_approvals": [],
+  "draft_ids": [],
+  "agents_involved": [
+    "inventory",
+    "accounting",
+    "boss"
+  ],
+  "tools_called": [
+    "ask_inventory",
+    "check_order_fulfillment",
+    "check_vendor_status",
+    "get_cash_position",
+    "get_ticket",
+    "list_outstanding_invoices",
+    "list_pending_approvals",
+    "quote_bulk_discount"
+  ],
+  "model_calls": 11,
+  "tool_calls": 12,
+  "message": "Reviewed the accounting report against the ticket, shop date, cash records, outstanding invoice list, pending approvals and Bulldog Print Co\u2019s vendor status. Its quoted stock, cost and list price are verified by ticket/product data; the $22 break-even floor follows from the verified unit cost, and the invoice is confirmed 3 days overdue as of 2026-08-31. No proposed customer price was supplied, so there is no specific override to approve; the ticket remains blocked by the shortfall and the vendor\u2019s unpaid invoice."
+}

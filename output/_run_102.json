@@ -1,0 +1,44 @@
+{
+  "ok": true,
+  "status": "needs_approval",
+  "run_id": "run-645343b6e6fb",
+  "ticket_id": 102,
+  "assigned_to": "facilities",
+  "routing_reason": "Ticket type 'rent_notice' is owned by the facilities agent.",
+  "resolution": "Reviewed the facilities report against the rent check, cash position, ticket record, and approval record. The rent amount, landlord, due date relative to shop date, unpaid status, and approval #1 are all confirmed by tools; no material facts were verified by assumption.",
+  "ticket_status": "waiting_approval",
+  "blocked_by": "Payment cannot be made until a human approves pending rent-payment request #1. The $2,400.00 is already committed in the cash-position calculation, so it is not available for other commitments meanwhile.",
+  "needs_human_approval": true,
+  "pending_approvals": [
+    {
+      "id": 1,
+      "kind": "rent_payment",
+      "ticket_id": 102,
+      "ref_id": 1,
+      "amount": 2400.0,
+      "requested_by": "Facilities",
+      "reason": "Elm City Properties \u2014 Chapel Street shop rent of $2,400.00 is due 2026-09-02, which is 2 days away (shop date 2026-08-31). Checking balance is $3,400.00; payment would leave $1,000.00. Rent is not already paid. Please approve payment.",
+      "status": "pending",
+      "created_at": "2026-08-31T00:00:00",
+      "decided_at": null,
+      "decided_by": null,
+      "decision_note": null
+    }
+  ],
+  "draft_ids": [],
+  "agents_involved": [
+    "facilities",
+    "boss"
+  ],
+  "tools_called": [
+    "check_rent_due",
+    "get_approval",
+    "get_cash_position",
+    "get_ticket",
+    "request_approval",
+    "update_ticket_status"
+  ],
+  "model_calls": 7,
+  "tool_calls": 9,
+  "message": "1 request(s) waiting for a human decision."
+}
